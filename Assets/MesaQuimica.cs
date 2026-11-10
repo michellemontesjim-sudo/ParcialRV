@@ -22,9 +22,16 @@ public class RecetaQuimica
 [System.Serializable]
 public class NivelQuimica
 {
-    [Tooltip("Los diálogos que el personaje dirá ANTES de empezar las recetas de este nivel")]
+    [Header("Cinemática")]
     public List<LineaDialogo> dialogosCinematica;
-    [Tooltip("Las recetas que se deben completar en este nivel")]
+
+    [Header("Tiempo (Opcional)")]
+    [Tooltip("¿Este nivel tiene tiempo límite?")]
+    public bool tieneTiempoLimite;
+    [Tooltip("Tiempo en segundos para completar TODO el nivel")]
+    public float tiempoEnSegundos;
+
+    [Header("Recetas")]
     public List<RecetaQuimica> recetasDelNivel;
 }
 
@@ -38,6 +45,7 @@ public class MesaQuimica : MonoBehaviour
     public TextMeshProUGUI textoDialogoCinematica;
     public TextMeshProUGUI textoInstruccionesReceta;
     public TextMeshProUGUI textoPuntaje;
+    public TextMeshProUGUI textoTemporizador; // NUEVO: Texto para el reloj
 
     [Header("Configuración de Cinemática")]
     public float velocidadEscritura = 0.05f;
@@ -55,45 +63,107 @@ public class MesaQuimica : MonoBehaviour
     public AudioSource sonidoExito;
     public ParticleSystem humoQuimico;
 
+    [Header("Penalizaciones")]
+    public int puntosPorError = 5;
+    public AudioSource sonidoError;
+    private Coroutine rutinaError;
+
     // Variables internas de control
     private bool enCinematica = false;
     private bool escribiendoDialogo = false;
     private int indiceDialogoActual = 0;
     private Coroutine rutinaEscribir;
 
+    // Control del temporizador
+    private bool temporizadorActivo = false;
+    private float tiempoRestante = 0f;
+
     void Start()
     {
         ActualizarUIPuntaje();
+        if (textoTemporizador != null) textoTemporizador.gameObject.SetActive(false);
+
         if (niveles.Count > 0)
         {
             IniciarCinematicaNivel();
         }
     }
 
-    // --- SISTEMA DE CINEMÁTICA ---
+    // --- EL RELOJ DEL JUEGO ---
+    void Update()
+    {
+        // El tiempo solo corre si está activo y no estamos en cinemática
+        if (temporizadorActivo && !enCinematica)
+        {
+            tiempoRestante -= Time.deltaTime;
+            ActualizarUITemporizador();
 
+            if (tiempoRestante <= 0)
+            {
+                tiempoRestante = 0;
+                temporizadorActivo = false;
+                NivelFalladoPorTiempo(); // ¡Se acabó el tiempo!
+            }
+        }
+    }
+
+    void ActualizarUITemporizador()
+    {
+        if (textoTemporizador != null)
+        {
+            // Convertimos los segundos a formato Minutos:Segundos (Ej: 01:30)
+            int minutos = Mathf.FloorToInt(tiempoRestante / 60);
+            int segundos = Mathf.FloorToInt(tiempoRestante % 60);
+            textoTemporizador.text = string.Format("{0:00}:{1:00}", minutos, segundos);
+
+            // Si quedan 10 segundos o menos, el texto se pone rojo para dar tensión
+            if (tiempoRestante <= 10f) textoTemporizador.color = Color.red;
+            else textoTemporizador.color = Color.white;
+        }
+    }
+
+    void NivelFalladoPorTiempo()
+    {
+        if (sonidoError != null) sonidoError.Play();
+
+        puntajeJugador -= 15; // Penalización fuerte por fallar el nivel
+        if (puntajeJugador < 0) puntajeJugador = 0;
+        ActualizarUIPuntaje();
+
+        if (rutinaError != null) StopCoroutine(rutinaError);
+        StartCoroutine(MensajeFallaTiempo());
+    }
+
+    IEnumerator MensajeFallaTiempo()
+    {
+        textoInstruccionesReceta.text = "<color=red><b>¡TIEMPO AGOTADO!</b></color>\nLos químicos se han arruinado. Reiniciando el nivel...";
+        yield return new WaitForSeconds(3f);
+
+        // Volvemos a empezar el nivel actual
+        IniciarCinematicaNivel();
+    }
+
+
+    // --- SISTEMA DE CINEMÁTICA ---
     void IniciarCinematicaNivel()
     {
         enCinematica = true;
+        temporizadorActivo = false; // Pausamos el reloj durante la cinemática
+        if (textoTemporizador != null) textoTemporizador.gameObject.SetActive(false);
 
-        // Encendemos la interfaz de novela visual y apagamos la de recetas
         panelCinematica.SetActive(true);
         panelReceta.SetActive(false);
-
         indiceDialogoActual = 0;
         MostrarLineaDialogo();
     }
 
-    // Conecta tu botón (físico o UI) a esta función para pasar el diálogo
     public void AvanzarDialogo()
     {
         if (!enCinematica) return;
 
         if (escribiendoDialogo)
         {
-            // Si el jugador presiona mientras escribe, se autocompleta de golpe
             if (rutinaEscribir != null) StopCoroutine(rutinaEscribir);
-
             textoDialogoCinematica.text = niveles[indiceNivelActual].dialogosCinematica[indiceDialogoActual].texto;
             escribiendoDialogo = false;
 
@@ -102,18 +172,9 @@ public class MesaQuimica : MonoBehaviour
         }
         else
         {
-            // Pasamos a la siguiente línea de diálogo
             indiceDialogoActual++;
-
-            if (indiceDialogoActual < niveles[indiceNivelActual].dialogosCinematica.Count)
-            {
-                MostrarLineaDialogo();
-            }
-            else
-            {
-                // Si ya no hay más diálogos, termina la cinemática
-                TerminarCinematica();
-            }
+            if (indiceDialogoActual < niveles[indiceNivelActual].dialogosCinematica.Count) MostrarLineaDialogo();
+            else TerminarCinematica();
         }
     }
 
@@ -148,20 +209,25 @@ public class MesaQuimica : MonoBehaviour
     void TerminarCinematica()
     {
         enCinematica = false;
-
-        // Apagamos la cinemática y mostramos la receta
         panelCinematica.SetActive(false);
         panelReceta.SetActive(true);
+
+        // Al terminar la cinemática, activamos el reloj si el nivel lo requiere
+        NivelQuimica nivelAct = niveles[indiceNivelActual];
+        if (nivelAct.tieneTiempoLimite)
+        {
+            tiempoRestante = nivelAct.tiempoEnSegundos;
+            temporizadorActivo = true;
+            if (textoTemporizador != null) textoTemporizador.gameObject.SetActive(true);
+        }
 
         indiceRecetaActual = 0;
         CargarReceta(indiceRecetaActual);
     }
 
     // --- SISTEMA DE QUÍMICA ---
-
     public void EvaluarIngrediente(SelectEnterEventArgs args)
     {
-        // Si estamos en medio de un diálogo, el caldero no acepta ingredientes
         if (enCinematica || indiceNivelActual >= niveles.Count) return;
 
         GameObject objetoPuesto = args.interactableObject.transform.gameObject;
@@ -171,13 +237,43 @@ public class MesaQuimica : MonoBehaviour
         {
             if (ingredientesFaltantes.Contains(ingrediente.nombreIngrediente))
             {
+                if (rutinaError != null) StopCoroutine(rutinaError);
+
                 ingredientesFaltantes.Remove(ingrediente.nombreIngrediente);
                 Destroy(objetoPuesto, 0.1f);
 
                 if (ingredientesFaltantes.Count == 0) RecetaCompletada();
                 else ActualizarUIInstrucciones();
             }
+            else
+            {
+                Destroy(objetoPuesto, 0.1f);
+                PenalizarJugador(ingrediente.nombreIngrediente);
+            }
         }
+    }
+
+    void PenalizarJugador(string nombreIncorrecto)
+    {
+        puntajeJugador -= puntosPorError;
+        if (puntajeJugador < 0) puntajeJugador = 0;
+
+        ActualizarUIPuntaje();
+        if (sonidoError != null) sonidoError.Play();
+
+        if (rutinaError != null) StopCoroutine(rutinaError);
+        rutinaError = StartCoroutine(MostrarMensajeErrorTemporal(nombreIncorrecto));
+    }
+
+    IEnumerator MostrarMensajeErrorTemporal(string nombreIncorrecto)
+    {
+        ActualizarUIInstrucciones();
+        string textoBase = textoInstruccionesReceta.text;
+        textoInstruccionesReceta.text = $"<color=red><b>¡ERROR!</b></color>\nEl ingrediente <color=orange>{nombreIncorrecto}</color> no va aquí.\n\n" + textoBase;
+
+        yield return new WaitForSeconds(2.5f);
+
+        if (!enCinematica && ingredientesFaltantes.Count > 0) ActualizarUIInstrucciones();
     }
 
     void RecetaCompletada()
@@ -202,6 +298,9 @@ public class MesaQuimica : MonoBehaviour
 
     void NivelCompletado()
     {
+        temporizadorActivo = false; // Detenemos el reloj si logró pasar
+        if (textoTemporizador != null) textoTemporizador.gameObject.SetActive(false);
+
         puntajeJugador += 50;
         ActualizarUIPuntaje();
 
@@ -209,7 +308,6 @@ public class MesaQuimica : MonoBehaviour
 
         if (indiceNivelActual < niveles.Count)
         {
-            // AL TERMINAR EL NIVEL: Se inicia automáticamente la cinemática del siguiente nivel
             IniciarCinematicaNivel();
         }
         else
