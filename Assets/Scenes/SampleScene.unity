@@ -2283,8 +2283,8 @@ MonoBehaviour:
       audioVoz: {fileID: 0}
     - texto: "\xA1Busca los ingredientes correctos!"
       audioVoz: {fileID: 0}
-    tieneTiempoLimite: 0
-    tiempoEnSegundos: 0
+    tieneTiempoLimite: 1
+    tiempoEnSegundos: 60
     recetasDelNivel:
     - nombreReceta: NaCl
       ingredientes:
