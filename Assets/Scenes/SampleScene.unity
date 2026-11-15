@@ -222,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DispensadorIngredientes
   prefabIngrediente: {fileID: 3824971162647677144, guid: 7f5645351e175cf4a994a99a777562d6, type: 3}
   puntoSpawn: {fileID: 517870236}
+  tiempoDeEspera: 2
 --- !u!4 &29504737 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2774220344278030320, guid: 8ea062721ba17db4e862920796a7188b, type: 3}
@@ -720,6 +721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DispensadorIngredientes
   prefabIngrediente: {fileID: 5771027072867543612, guid: 8e6f8261e18c9cf4ead2fdad5eea50f1, type: 3}
   puntoSpawn: {fileID: 2112445750}
+  tiempoDeEspera: 2
 --- !u!4 &323870481 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2774220344278030320, guid: 8ea062721ba17db4e862920796a7188b, type: 3}
@@ -997,6 +999,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DispensadorIngredientes
   prefabIngrediente: {fileID: 1489511190107962008, guid: da259433131fc1c41a6e964ee094591d, type: 3}
   puntoSpawn: {fileID: 1676023580}
+  tiempoDeEspera: 2
 --- !u!4 &354430197 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2774220344278030320, guid: 8ea062721ba17db4e862920796a7188b, type: 3}
@@ -1864,6 +1867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DispensadorIngredientes
   prefabIngrediente: {fileID: 4860041333107170645, guid: 3420d8d95f09ae4418de3456b772b0ab, type: 3}
   puntoSpawn: {fileID: 1894641100}
+  tiempoDeEspera: 2
 --- !u!4 &593524855 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2774220344278030320, guid: 8ea062721ba17db4e862920796a7188b, type: 3}
@@ -2283,7 +2287,7 @@ MonoBehaviour:
       audioVoz: {fileID: 0}
     - texto: "\xA1Busca los ingredientes correctos!"
       audioVoz: {fileID: 0}
-    tieneTiempoLimite: 1
+    tieneTiempoLimite: 0
     tiempoEnSegundos: 60
     recetasDelNivel:
     - nombreReceta: NaCl
@@ -2322,7 +2326,11 @@ MonoBehaviour:
       - "Ox\xEDgeno"
       - "Ox\xEDgeno"
       - "Ox\xEDgeno"
-  - dialogosCinematica: []
+  - dialogosCinematica:
+    - texto: "\xA1Sigue con la creaci\xF3n de los qu\xEDmicos!"
+      audioVoz: {fileID: 0}
+    - texto: "\xA1Ya casi lo logras!"
+      audioVoz: {fileID: 0}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 0
     recetasDelNivel:
@@ -4133,6 +4141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DispensadorIngredientes
   prefabIngrediente: {fileID: 4471587488298149835, guid: 7ad9bb5dc4588e7499a326a7cff30f5e, type: 3}
   puntoSpawn: {fileID: 563377855}
+  tiempoDeEspera: 2
 --- !u!4 &937117271 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2774220344278030320, guid: 8ea062721ba17db4e862920796a7188b, type: 3}
@@ -5132,6 +5141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DispensadorIngredientes
   prefabIngrediente: {fileID: 2783226348315284838, guid: 417dcdffc1468e540bec5722699e4649, type: 3}
   puntoSpawn: {fileID: 2894645}
+  tiempoDeEspera: 2
 --- !u!4 &1174925789 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2774220344278030320, guid: 8ea062721ba17db4e862920796a7188b, type: 3}
@@ -7552,6 +7562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DispensadorIngredientes
   prefabIngrediente: {fileID: 9186221933322836825, guid: 3b0707dedfb9a1244aec0bb3d66ae46b, type: 3}
   puntoSpawn: {fileID: 129901016}
+  tiempoDeEspera: 2
 --- !u!4 &1714082737 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2774220344278030320, guid: 8ea062721ba17db4e862920796a7188b, type: 3}
@@ -8301,6 +8312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DispensadorIngredientes
   prefabIngrediente: {fileID: 8914037005221711348, guid: f41da2c103ff3a54fad69059e9ad379d, type: 3}
   puntoSpawn: {fileID: 1804971795}
+  tiempoDeEspera: 2
 --- !u!4 &1874935306 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2774220344278030320, guid: 8ea062721ba17db4e862920796a7188b, type: 3}

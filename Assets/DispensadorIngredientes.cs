@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -10,6 +11,9 @@ public class DispensadorIngredientes : MonoBehaviour
 
     [Tooltip("El punto exacto donde aparecerán (puedes arrastrar este mismo objeto)")]
     public Transform puntoSpawn;
+
+    [Tooltip("Segundos que tardará en reaparecer un nuevo ingrediente tras agarrar el anterior")]
+    public float tiempoDeEspera = 2.0f;
 
     void Start()
     {
@@ -41,14 +45,23 @@ public class DispensadorIngredientes : MonoBehaviour
 
     void AlSerAgarrado(SelectEnterEventArgs args)
     {
-        // 1. Buscamos el frasco específico que el jugador acaba de agarrar
         XRGrabInteractable agarre = args.interactableObject.transform.GetComponent<XRGrabInteractable>();
 
-        // 2. Le quitamos el evento. 
-        // ¿Por qué? Para que si el jugador lo suelta en el piso y lo vuelve a agarrar, no genere OTRO clon extra en la mesa.
-        agarre.selectEntered.RemoveListener(AlSerAgarrado);
+        if (agarre != null)
+        {
+            agarre.selectEntered.RemoveListener(AlSerAgarrado);
+        }
 
-        // 3. Generamos el siguiente frasco de repuesto en el punto de inicio
+        // En lugar de instanciar de inmediato, iniciamos la cuenta regresiva
+        StartCoroutine(EsperarYGenerar());
+
+    }
+
+    IEnumerator EsperarYGenerar()
+    {
+        // Pausa la ejecución durante los segundos configurados en el Inspector
+        yield return new WaitForSeconds(tiempoDeEspera);
+
         GenerarNuevo();
     }
 }
