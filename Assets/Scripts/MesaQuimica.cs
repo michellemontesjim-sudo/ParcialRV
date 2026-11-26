@@ -31,6 +31,10 @@ public class NivelQuimica
     [Tooltip("Tiempo en segundos para completar TODO el nivel")]
     public float tiempoEnSegundos;
 
+    [Header("Temperatura")]
+    [Tooltip("Si se marca, todos los ingredientes de este nivel deben calentarse primero")]
+    public bool requiereIngredientesCalientes;
+
     [Header("Recetas")]
     public List<RecetaQuimica> recetasDelNivel;
 }
@@ -235,6 +239,15 @@ public class MesaQuimica : MonoBehaviour
 
         if (ingrediente != null)
         {
+            // 1. Verificamos si el nivel pide temperatura y si el frasco está frío
+            bool nivelPideCalor = niveles[indiceNivelActual].requiereIngredientesCalientes;
+            if (nivelPideCalor && !ingrediente.estaCaliente)
+            {
+                Destroy(objetoPuesto, 0.1f);
+                PenalizarJugador(ingrediente.nombreIngrediente + " (¡Estaba frío! Caliéntalo primero)");
+                return; // Detenemos aquí para que no lo acepte
+            }
+
             if (ingredientesFaltantes.Contains(ingrediente.nombreIngrediente))
             {
                 if (rutinaError != null) StopCoroutine(rutinaError);
@@ -328,9 +341,19 @@ public class MesaQuimica : MonoBehaviour
     void ActualizarUIInstrucciones()
     {
         if (textoInstruccionesReceta == null) return;
+        NivelQuimica nivel = niveles[indiceNivelActual];
         RecetaQuimica receta = niveles[indiceNivelActual].recetasDelNivel[indiceRecetaActual];
 
         string textoFinal = $"<b><color=#00FFFF>Fórmula {indiceRecetaActual + 1}: {receta.nombreReceta}</color></b>\n\n";
+
+        // Aviso visual si este nivel requiere calor
+        if (nivel.requiereIngredientesCalientes)
+        {
+            textoFinal += "<color=#FF5500><b>¡ATENCIÓN! Calienta los ingredientes antes de mezclar.</b></color>\n";
+        }
+
+        textoFinal += "\n<color=yellow>Falta añadir:</color>\n";
+
         textoFinal += "<color=yellow>Falta añadir:</color>\n";
 
         foreach (string ing in ingredientesFaltantes)
