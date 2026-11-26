@@ -140,11 +140,25 @@ public class MesaQuimica : MonoBehaviour
 
     IEnumerator MensajeFallaTiempo()
     {
-        textoInstruccionesReceta.text = "<color=red><b>¡TIEMPO AGOTADO!</b></color>\nLos químicos se han arruinado. Reiniciando el nivel...";
-        yield return new WaitForSeconds(3f);
 
-        // Volvemos a empezar el nivel actual
-        IniciarCinematicaNivel();
+        textoInstruccionesReceta.text = "<color=red><b>¡TIEMPO AGOTADO!</b></color>\nLos químicos se han arruinado. Reiniciando el nivel...";
+        yield return new WaitForSeconds(5f);
+
+        NivelQuimica nivelAct = niveles[indiceNivelActual];
+        if (nivelAct.tieneTiempoLimite)
+        {
+            tiempoRestante = nivelAct.tiempoEnSegundos;
+            temporizadorActivo = true;
+            if (textoTemporizador != null)
+            {
+                textoTemporizador.gameObject.SetActive(true);
+                textoTemporizador.color = Color.white;
+            }
+        }
+
+        // Volvemos a cargar desde la primera receta de ESTE nivel sin pasar por la cinemática
+        indiceRecetaActual = 0;
+        CargarReceta(indiceRecetaActual);
     }
 
 
@@ -284,7 +298,7 @@ public class MesaQuimica : MonoBehaviour
         string textoBase = textoInstruccionesReceta.text;
         textoInstruccionesReceta.text = $"<color=red><b>¡ERROR!</b></color>\nEl ingrediente <color=orange>{nombreIncorrecto}</color> no va aquí.\n\n" + textoBase;
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(4f);
 
         if (!enCinematica && ingredientesFaltantes.Count > 0) ActualizarUIInstrucciones();
     }

@@ -4555,8 +4555,8 @@ MonoBehaviour:
       audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     - texto: "Su\xE9ltalos y se prepar\xE1 la receta si los ingredientes son correctos"
       audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
-    tieneTiempoLimite: 0
-    tiempoEnSegundos: 0
+    tieneTiempoLimite: 1
+    tiempoEnSegundos: 10
     requiereIngredientesCalientes: 0
     recetasDelNivel:
     - nombreReceta: H2O
@@ -4566,11 +4566,11 @@ MonoBehaviour:
       - "Ox\xEDgeno"
   - dialogosCinematica:
     - texto: "\xA1Perfecto! Ahora sigamos con otra receta simple"
-      audioVoz: {fileID: 0}
+      audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     - texto: Esta vez es cloruro de sodio, osea NaCl
-      audioVoz: {fileID: 0}
+      audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     - texto: "\xA1Busca los ingredientes correctos!"
-      audioVoz: {fileID: 0}
+      audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 60
     requiereIngredientesCalientes: 0
@@ -4581,11 +4581,11 @@ MonoBehaviour:
       - Cloro
   - dialogosCinematica:
     - texto: "\xA1Muy bien! Ahora seguir\xE1s haciendo las recetas t\xFA"
-      audioVoz: {fileID: 0}
+      audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     - texto: "Se te mostrar\xE1 un qu\xEDmico y tu tendr\xE1s que hacerlo"
-      audioVoz: {fileID: 0}
+      audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     - texto: "\xA1Suerte!"
-      audioVoz: {fileID: 0}
+      audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     tieneTiempoLimite: 1
     tiempoEnSegundos: 150
     requiereIngredientesCalientes: 0
@@ -4614,10 +4614,10 @@ MonoBehaviour:
       - "Ox\xEDgeno"
   - dialogosCinematica:
     - texto: "\xA1Sigue con la creaci\xF3n de los qu\xEDmicos!"
-      audioVoz: {fileID: 0}
+      audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     - texto: "\xA1Ya casi lo logras!"
-      audioVoz: {fileID: 0}
-    tieneTiempoLimite: 0
+      audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
+    tieneTiempoLimite: 1
     tiempoEnSegundos: 120
     requiereIngredientesCalientes: 0
     recetasDelNivel:
@@ -4645,26 +4645,21 @@ MonoBehaviour:
       - "Ox\xEDgeno"
   - dialogosCinematica:
     - texto: Ahora como toque final...
-      audioVoz: {fileID: 0}
+      audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     - texto: "\xA1Vas a tener que calentar los ingredientes!"
-      audioVoz: {fileID: 0}
-    - texto: "Ahora tendr\xE1s que hacer dos \xF3rdenes de la Reacci\xF3n de Termita "
-      audioVoz: {fileID: 0}
+      audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
+    - texto: "Ahora tendr\xE1s que hacer dos \xF3rdenes calentando lo pedido "
+      audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     - texto: "\xA1Suerte!"
-      audioVoz: {fileID: 0}
+      audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     tieneTiempoLimite: 1
     tiempoEnSegundos: 90
     requiereIngredientesCalientes: 1
     recetasDelNivel:
-    - nombreReceta: "Reacci\xF3n de Termita"
+    - nombreReceta: Sulfuro de hierro
       ingredientes:
+      - Azufre
       - Hierro
-      - Hierro
-      - Aluminio
-      - Aluminio
-      - "Ox\xEDgeno"
-      - "Ox\xEDgeno"
-      - "Ox\xEDgeno"
     - nombreReceta: "Reacci\xF3n de Termita"
       ingredientes:
       - Hierro
@@ -5313,7 +5308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning.ContinuousTurnProvider
   m_Mediator: {fileID: 1973856426}
   m_TransformationPriority: 0
-  m_TurnSpeed: 60
+  m_TurnSpeed: 76
   m_EnableTurnLeftRight: 1
   m_EnableTurnAround: 0
   m_LeftHandTurnInput:
@@ -5702,7 +5697,7 @@ Transform:
   m_GameObject: {fileID: 864725060}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.99961567, z: -0, w: -0.027722673}
-  m_LocalPosition: {x: 9.61, y: 0.37699997, z: -2.96}
+  m_LocalPosition: {x: 9.61, y: 0.557, z: -2.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6032,7 +6027,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Locomotion.Movement.ContinuousMoveProvider
   m_Mediator: {fileID: 1973856426}
   m_TransformationPriority: 0
-  m_MoveSpeed: 2
+  m_MoveSpeed: 3
   m_InAirControlModifier: 0.5
   m_EnableStrafe: 1
   m_EnableFly: 0
