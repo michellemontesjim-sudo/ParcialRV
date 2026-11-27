@@ -64,6 +64,7 @@ public class MesaQuimica : MonoBehaviour
 
     [Header("Efectos de Juego")]
     public int puntajeJugador = 0;
+    public int erroresCometidos = 0;
     public AudioSource sonidoExito;
     public ParticleSystem humoQuimico;
 
@@ -115,7 +116,7 @@ public class MesaQuimica : MonoBehaviour
     {
         if (textoTemporizador != null)
         {
-            // Convertimos los segundos a formato Minutos:Segundos (Ej: 01:30)
+            
             int minutos = Mathf.FloorToInt(tiempoRestante / 60);
             int segundos = Mathf.FloorToInt(tiempoRestante % 60);
             textoTemporizador.text = string.Format("{0:00}:{1:00}", minutos, segundos);
@@ -262,6 +263,13 @@ public class MesaQuimica : MonoBehaviour
                 return; // Detenemos aquí para que no lo acepte
             }
 
+            if (!nivelPideCalor && ingrediente.estaCaliente)
+            {
+                Destroy(objetoPuesto, 0.1f);
+                PenalizarJugador(ingrediente.nombreIngrediente + " (¡No debía calentarse en este nivel!)");
+                return;
+            }
+
             if (ingredientesFaltantes.Contains(ingrediente.nombreIngrediente))
             {
                 if (rutinaError != null) StopCoroutine(rutinaError);
@@ -282,6 +290,8 @@ public class MesaQuimica : MonoBehaviour
 
     void PenalizarJugador(string nombreIncorrecto)
     {
+        erroresCometidos++;
+
         puntajeJugador -= puntosPorError;
         if (puntajeJugador < 0) puntajeJugador = 0;
 
@@ -341,7 +351,9 @@ public class MesaQuimica : MonoBehaviour
         {
             panelReceta.SetActive(true);
             panelCinematica.SetActive(false);
-            textoInstruccionesReceta.text = "<color=green>¡Felicidades!</color>\nHas completado todas las fórmulas del juego.";
+            textoInstruccionesReceta.text = $"<color=green><b>¡Felicidades!</b></color>\nHas completado todas las fórmulas del laboratorio.\n\n" +
+                                            $"<color=yellow>¡Obtuviste <b>{puntajeJugador}</b> puntos!</color>\n" +
+                                            $"<color=#FF6666>Errores cometidos: <b>{erroresCometidos}</b></color>";
         }
     }
 
@@ -380,5 +392,14 @@ public class MesaQuimica : MonoBehaviour
     void ActualizarUIPuntaje()
     {
         if (textoPuntaje != null) textoPuntaje.text = "Puntos: " + puntajeJugador;
+    }
+
+    public bool NivelActualRequiereCalor()
+    {
+        if (indiceNivelActual >= 0 && indiceNivelActual < niveles.Count)
+        {
+            return niveles[indiceNivelActual].requiereIngredientesCalientes;
+        }
+        return false;
     }
 }
