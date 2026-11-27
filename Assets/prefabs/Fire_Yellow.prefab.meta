@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/prefabs/Fire_Yellow.prefab.meta
 guid: 10f8cc7d3f01d6c45b85cbf566424400
 PrefabImporter:
+========
+guid: 32f18dc9dbcd31b42b2273a811caee53
+folderAsset: yes
+DefaultImporter:
+>>>>>>>> ana:Assets/prefabs/AllSkyFree/Deep Dusk/Materials.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
