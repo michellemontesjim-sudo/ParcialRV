@@ -263,6 +263,13 @@ public class MesaQuimica : MonoBehaviour
                 return; // Detenemos aquí para que no lo acepte
             }
 
+            if (!nivelPideCalor && ingrediente.estaCaliente)
+            {
+                Destroy(objetoPuesto, 0.1f);
+                PenalizarJugador(ingrediente.nombreIngrediente + " (¡No debía calentarse en este nivel!)");
+                return;
+            }
+
             if (ingredientesFaltantes.Contains(ingrediente.nombreIngrediente))
             {
                 if (rutinaError != null) StopCoroutine(rutinaError);
@@ -385,5 +392,14 @@ public class MesaQuimica : MonoBehaviour
     void ActualizarUIPuntaje()
     {
         if (textoPuntaje != null) textoPuntaje.text = "Puntos: " + puntajeJugador;
+    }
+
+    public bool NivelActualRequiereCalor()
+    {
+        if (indiceNivelActual >= 0 && indiceNivelActual < niveles.Count)
+        {
+            return niveles[indiceNivelActual].requiereIngredientesCalientes;
+        }
+        return false;
     }
 }
