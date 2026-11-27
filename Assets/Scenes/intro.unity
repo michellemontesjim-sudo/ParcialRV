@@ -2528,6 +2528,7 @@ MonoBehaviour:
       audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 0
+    requiereIngredientesCalientes: 0
     recetasDelNivel:
     - nombreReceta: H2O
       ingredientes:
@@ -2543,6 +2544,7 @@ MonoBehaviour:
       audioVoz: {fileID: 0}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 60
+    requiereIngredientesCalientes: 0
     recetasDelNivel:
     - nombreReceta: NaCl
       ingredientes:
@@ -2557,6 +2559,7 @@ MonoBehaviour:
       audioVoz: {fileID: 0}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 0
+    requiereIngredientesCalientes: 0
     recetasDelNivel:
     - nombreReceta: "Alcohol et\xEDlico"
       ingredientes:
@@ -2587,6 +2590,7 @@ MonoBehaviour:
       audioVoz: {fileID: 0}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 0
+    requiereIngredientesCalientes: 0
     recetasDelNivel:
     - nombreReceta: Dicromato de potasio
       ingredientes:
@@ -9501,6 +9505,7 @@ MonoBehaviour:
       audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 0
+    requiereIngredientesCalientes: 0
     recetasDelNivel:
     - nombreReceta: H2O
       ingredientes:
@@ -9516,6 +9521,7 @@ MonoBehaviour:
       audioVoz: {fileID: 0}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 60
+    requiereIngredientesCalientes: 0
     recetasDelNivel:
     - nombreReceta: NaCl
       ingredientes:
@@ -9530,6 +9536,7 @@ MonoBehaviour:
       audioVoz: {fileID: 0}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 0
+    requiereIngredientesCalientes: 0
     recetasDelNivel:
     - nombreReceta: "Alcohol et\xEDlico"
       ingredientes:
@@ -9560,6 +9567,7 @@ MonoBehaviour:
       audioVoz: {fileID: 0}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 0
+    requiereIngredientesCalientes: 0
     recetasDelNivel:
     - nombreReceta: Dicromato de potasio
       ingredientes:
@@ -11059,7 +11067,7 @@ MonoBehaviour:
   sonidoPocionCompleta: {fileID: 8300000, guid: 90173be65385b3f4c9f839825f8f4a8d, type: 3}
   textoBienvenida: {fileID: 1389356430}
   textoExito: {fileID: 1795477550}
-  nombreEscenaSiguiente: SampleScene
+  nombreEscenaSiguiente: juego
 --- !u!1 &1583094996
 GameObject:
   m_ObjectHideFlags: 0
@@ -11417,6 +11425,7 @@ MonoBehaviour:
       audioVoz: {fileID: 8300000, guid: 3a8fa145447b3ca41b963dd46bac1b6f, type: 3}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 0
+    requiereIngredientesCalientes: 0
     recetasDelNivel:
     - nombreReceta: H2O
       ingredientes:
@@ -11432,6 +11441,7 @@ MonoBehaviour:
       audioVoz: {fileID: 0}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 60
+    requiereIngredientesCalientes: 0
     recetasDelNivel:
     - nombreReceta: NaCl
       ingredientes:
@@ -11446,6 +11456,7 @@ MonoBehaviour:
       audioVoz: {fileID: 0}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 0
+    requiereIngredientesCalientes: 0
     recetasDelNivel:
     - nombreReceta: "Alcohol et\xEDlico"
       ingredientes:
@@ -11476,6 +11487,7 @@ MonoBehaviour:
       audioVoz: {fileID: 0}
     tieneTiempoLimite: 0
     tiempoEnSegundos: 0
+    requiereIngredientesCalientes: 0
     recetasDelNivel:
     - nombreReceta: Dicromato de potasio
       ingredientes:
