@@ -5021,7 +5021,7 @@ MonoBehaviour:
   textoPuntaje: {fileID: 1366964813}
   textoTemporizador: {fileID: 1661712479}
   velocidadEscritura: 0.05
-  animMascota: {fileID: 0}
+  animMascota: {fileID: 5866666021909216657, guid: 70aaf66615df79649aa1b7e7ed54999d, type: 3}
   audioSourceMascota: {fileID: 797805063}
   niveles:
   - dialogosCinematica:
@@ -13288,7 +13288,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3267df98f1142584e901fc46d8581f8b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
