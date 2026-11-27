@@ -87,6 +87,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8489823920000128820}
   m_SourcePrefab: {fileID: 299443380195527995, guid: 8dee295301f0e5d4eb86a400b055c4f5, type: 3}
+--- !u!23 &1405127329534993218 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3288491109020474507, guid: 8dee295301f0e5d4eb86a400b055c4f5, type: 3}
+  m_PrefabInstance: {fileID: 4745928824253677623}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2035625047346891808 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2458099888155374569, guid: 8dee295301f0e5d4eb86a400b055c4f5, type: 3}
@@ -286,7 +291,7 @@ MonoBehaviour:
   temperaturaActual: 20
   temperaturaObjetivo: 80
   estaCaliente: 0
-  meshRenderer: {fileID: 3432451100638142714}
+  meshRenderer: {fileID: 1405127329534993218}
   colorCaliente: {r: 1, g: 0, b: 0, a: 1}
   audioSource: {fileID: 8489823920000128820}
   sonidoListo: {fileID: 8300000, guid: 7083b996a3172ec47beb96bc6bcbad70, type: 3}
